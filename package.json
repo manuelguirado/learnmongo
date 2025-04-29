@@ -1,0 +1,25 @@
+{
+  "name": "learnmongo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "mongo "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manuelguirado/learnmongo.git"
+  },
+  "keywords": [
+    "mongo"
+  ],
+  "author": "manuelguirado",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manuelguirado/learnmongo/issues"
+  },
+  "homepage": "https://github.com/manuelguirado/learnmongo#readme",
+  "description": "",
+  "dependencies": {
+    "mongodb": "^6.16.0"
+  }
+}
