@@ -20,7 +20,15 @@ This repository contains:
     cd learnmongo
     ```
 3. Explore the files to follow along with my learning process.
-
+4. Initialize npm to manage dependencies:
+    ```bash
+    npm init -y
+    ```
+5. Install necessary dependencies:
+    ```bash
+    npm install mongodb
+    ```
+       
 ## Topics Covered
 
 - MongoDB basics
