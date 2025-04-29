@@ -20,6 +20,7 @@
   "homepage": "https://github.com/manuelguirado/learnmongo#readme",
   "description": "",
   "dependencies": {
+    "express": "^5.1.0",
     "mongodb": "^6.16.0"
   }
 }
