@@ -98,7 +98,7 @@ async function sortDocuments() {
     // Find documents with a filter
     console.log("Finding documents..., with filter");
     const query = {};
-    const sortFields = { length : -1 }; // Sort by age in ascending order
+    const sortFields = { length: -1 }; // Sort by age in ascending order
     const cursor = collection.find(query).sort(sortFields);
     const sortedDocs = await cursor.toArray();
     console.log("Sorted documents found:");
@@ -110,62 +110,104 @@ async function sortDocuments() {
   }
 }
 async function limit() {
-    try{
-        //use a database named "myexampledb "
-        const db = client.db("myexampledb");
-        // use a collection named "encontrarDocumentos"
-        const collection = db.collection("encontrarDocumentos");
-        const query = {};
-        const options = {
-            limit: 2, // Limit the number of documents to 2
-            sort: { age: -1 }, // Sort by age in descending order
-            
-        };
-        //create a cursor
-        const cursor = collection.find(query).sort(options.sort).limit(options.limit);
-        // Convert the cursor to an array
-        const limitedDocs = await cursor.toArray();
-        console.log("Limited documents found:");
-        for (let doc of limitedDocs) {
-            console.log(doc);
-        }
-
-    }catch(err){
-        console.log(err);
+  try {
+    //use a database named "myexampledb "
+    const db = client.db("myexampledb");
+    // use a collection named "encontrarDocumentos"
+    const collection = db.collection("encontrarDocumentos");
+    const query = {};
+    const options = {
+      limit: 2, // Limit the number of documents to 2
+      sort: { age: -1 }, // Sort by age in descending order
+    };
+    //create a cursor
+    const cursor = collection
+      .find(query)
+      .sort(options.sort)
+      .limit(options.limit);
+    // Convert the cursor to an array
+    const limitedDocs = await cursor.toArray();
+    console.log("Limited documents found:");
+    for (let doc of limitedDocs) {
+      console.log(doc);
     }
-
+  } catch (err) {
+    console.log(err);
+  }
 }
-async function skip(){
-    try{
-        const db = client.db("myexampledb");
-        // use a collection named "encontrarDocumentos"
-        const collection = db.collection("encontrarDocumentos");
-        const query = {};
-        const options = {
-            skip: 1, // Skip the first document
-            limit: 2, // Limit the number of documents to 2
-            sort: { age: -1 }, // Sort by age in descending order
-            
-        };
-        //create a cursor
-        const cursor = collection.find(query).sort(options.sort).skip(options.skip).limit(options.limit);
-        // Convert the cursor to an array
-        const limitedDocs = await cursor.toArray();
-        console.log("Limited documents found:");
-        for (let doc of limitedDocs) {
-            console.log(doc);
-        }
-    }catch(err){
-        console.log(err);
+async function skip() {
+  try {
+    const db = client.db("myexampledb");
+    // use a collection named "encontrarDocumentos"
+    const collection = db.collection("encontrarDocumentos");
+    const query = {};
+    const options = {
+      skip: 1, // Skip the first document
+      limit: 2, // Limit the number of documents to 2
+      sort: { age: -1 }, // Sort by age in descending order
+    };
+    //create a cursor
+    const cursor = collection
+      .find(query)
+      .sort(options.sort)
+      .skip(options.skip)
+      .limit(options.limit);
+    // Convert the cursor to an array
+    const limitedDocs = await cursor.toArray();
+    console.log("Limited documents found:");
+    for (let doc of limitedDocs) {
+      console.log(doc);
     }
+  } catch (err) {
+    console.log(err);
+  }
 }
-    async function run() {
+async function retornarUnCampo() {
+  try {
+    //use the database name   "myexampledb "
+    const db = client.db("myexampledb");
+    //use a collection named "encontrarDocumentos"
+    const collection = db.collection("encontrarDocumentos");
+    //return only the name field
+    const proyectFields = { name: 1 };
+    const cursor = collection.find().project(proyectFields);
+    const docs = await cursor.toArray();
+    console.log("Documents found:");
+    for (let doc of docs) {
+      console.log(doc);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+async function retornarVariosCampos() {
+  try {
+    //use the database name   "myexampledb "
+    const db = client.db("myexampledb");
+    //use a collection named "encontrarDocumentos"
+    const collection = db.collection("encontrarDocumentos");
+    //return only the name and age fields
+    const proyectFields = { name: 1, age: 1 };
+    const cursor = collection.find().project(proyectFields);
+    const docs = await cursor.toArray();
+    console.log("Documents found:");
+    for (let doc of docs) {
+      console.log(doc);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function run() {
   await connectToMongo();
   await createDatabase();
   await findDocuments();
-   await sortDocuments();
-    await limit();
-    await skip();
+  await sortDocuments();
+  await limit();
+  await skip();
+  await retornarUnCampo();
+  await retornarVariosCampos();
   await client.close();
 }
 run().catch(console.dir);
