@@ -100,12 +100,27 @@ async function updateManyDocuments() {
         console.err(err);
     }
 }
+async function replaceOneDocument() {
+  try {
+      console.log("Replacing one document...");
+      const db = client.db("myexmpledb");
+      const collection = db.collection("actualizarDocumentos");
+      const query = { name: "example" };
+      const newDocument = { name: "example", age: 40, city: "New York" };
+       const options = { upsert: true };
+      const result = await collection.replaceOne(query, newDocument, options);
+      console.log(`Replaced ${result.modifiedCount} document(s)`);
+  }catch (err) {
+      console.log(err);
+  }
+}
 async function run() {
     await connectToMongo();
     await createDatabase();
     await updateOneDocument();
     await updateWithUpsert();
     await updateManyDocuments();
+    await replaceOneDocument();
     await client.close();
 }
 run().catch(console.dir);
